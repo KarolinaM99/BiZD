@@ -1,0 +1,23 @@
+CREATE TABLE REGIONS (region_id INT PRIMARY KEY, region_name VARCHAR2(60));
+
+CREATE TABLE COUNTRIES (country_id INT PRIMARY KEY, country_name VARCHAR2(60), region_id INT);
+ALTER TABLE COUNTRIES ADD FOREIGN KEY (region_id) REFERENCES REGIONS(region_id);
+
+CREATE TABLE LOCATIONS (location_id INT PRIMARY KEY, street_address VARCHAR2(60), postal_code VARCHAR2(60), city VARCHAR(60),
+state_province VARCHAR(60), country_id INT);
+ALTER TABLE LOCATIONS ADD FOREIGN KEY (country_id) REFERENCES COUNTRIES(country_id);
+
+CREATE TABLE DEPARTMENTS (department_id INT PRIMARY KEY, department_name VARCHAR(60), manager_id INT, location_id INT);
+ALTER TABLE DEPARTMENTS ADD FOREIGN KEY (location_id) REFERENCES LOCATIONS(location_id);
+
+CREATE TABLE JOB_HISTORY (employee_id INT PRIMARY KEY, start_date DATE, end_date DATE, job_id INT, department_id INT,
+FOREIGN KEY (department_id) REFERENCES DEPARTMENTS(department_id));
+
+CREATE TABLE JOBS (job_id INT PRIMARY KEY, job_title VARCHAR2(60), min_salary INT, max_salary INT, CONSTRAINT warunekminmax2000 CHECK (max_salary-min_salary >= 2000));
+
+CREATE TABLE EMPLOYEES (employee_id INT PRIMARY KEY, first_name VARCHAR2(60), last_name VARCHAR2(60), email VARCHAR(60),
+phone_number INT, hire_date DATE, job_id INT, salary INT, commission_pct VARCHAR(60), manager_id INT, department_id INT,
+FOREIGN KEY(job_id) REFERENCES JOBS(job_id), FOREIGN KEY(department_id) REFERENCES DEPARTMENTS(department_id), FOREIGN KEY(manager_id) REFERENCES EMPLOYEES(employee_id));
+
+ALTER TABLE DEPARTMENTS ADD FOREIGN KEY (manager_id) REFERENCES EMPLOYEES(employee_id);
+ALTER TABLE JOB_HISTORY ADD FOREIGN KEY (job_id) REFERENCES JOBS(job_id);
