@@ -1,2 +1,3 @@
-# Bazy i żródła danych Statystyka i algebra w praktyce
+# 1️⃣ Bazy i żródła danych 
+2️⃣ Statystyka i algebra w praktyce
 Karolina Maliszewska 
