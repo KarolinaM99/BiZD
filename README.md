@@ -8,7 +8,7 @@ Karolina Maliszewska
     - [x] Zadanie 3
     - [x] Zadanie 4
     - [x] Zadanie 5
-    - [ ] Zadanie 6
+    - [x] Zadanie 6
     - [ ] Zadanie 7
     - [ ] Zadanie 8
     - [ ] Zadanie 9
