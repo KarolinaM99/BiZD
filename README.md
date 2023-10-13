@@ -3,6 +3,8 @@ Karolina Maliszewska
 ## Rozwiązania zadań
 <details>
 <summary>Lab 1</summary>
-- [x] [Lab 1](Lab1)
+<ul>
+  <li><input type="checkbox" checked>Zadanie 1</li>
+</ul>
 </details>
 
