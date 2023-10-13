@@ -5,4 +5,3 @@ Karolina Maliszewska
 - [ ] [Lab 2](Lab2)
       - [x] Zadania 1-6
       - [ ] Zadanie 7-12
-
