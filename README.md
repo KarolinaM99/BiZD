@@ -2,8 +2,8 @@
 Karolina Maliszewska 
 ## Rozwiązania zadań
 - [x] [Lab 1](Lab1)   
-- [x] [Lab 2](Lab2)
-      <details>
+- <details>
+<summary>[x] [Lab 2](Lab2)</summary>
     - [x] Zadanie 1
     - [x] Zadanie 2
     - [x] Zadanie 3
