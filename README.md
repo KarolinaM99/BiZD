@@ -1,8 +1,11 @@
 # Bazy i żródła danych & Statystyka i algebra w praktyce 
 Karolina Maliszewska 
 ## Rozwiązania zadań
-- [x] [Lab 1](Lab1)
-- [ ]  <details>
+<details>
+  <summary>Lab 1</summary>
+  [x] [Lab 1](Lab1)
+</details>
+<details>
 <summary>[Lab 2](Lab2)</summary>
 - [x] Zadanie 1
 - [x] Zadanie 2
