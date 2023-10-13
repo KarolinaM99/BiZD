@@ -3,7 +3,7 @@ Karolina Maliszewska
 ## Rozwiązania zadań
 <details>
   <summary>Lab 1</summary>
-  [x] [Lab 1](Lab1)
+- [x] [Lab 1](Lab1)
 </details>
 <details>
 <summary>[Lab 2](Lab2)</summary>
