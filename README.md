@@ -3,6 +3,7 @@ Karolina Maliszewska
 ## Rozwiązania zadań
 - [x] [Lab 1](Lab1)   
 - [x] [Lab 2](Lab2)
+      <details>
     - [x] Zadanie 1
     - [x] Zadanie 2
     - [x] Zadanie 3
@@ -15,3 +16,4 @@ Karolina Maliszewska
     - [ ] Zadanie 10
     - [ ] Zadanie 11
     - [ ] Zadanie 12
+    </details>
