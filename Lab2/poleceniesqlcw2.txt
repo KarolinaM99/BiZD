@@ -35,3 +35,35 @@ SELECT EMPLOYEES.last_name, EMPLOYEES.department_id, DEPARTMENTs.department_name
 JOIN DEPARTMENTs ON EMPLOYEES.department_id = DEPARTMENTs.department_id
 JOIN LOCATIONS ON DEPARTMENTs.location_id = LOCATIONS.location_id
 WHERE LOCATIONS.city = 'Toronto';
+
+Zadanie 7
+SELECT E1.first_name, E1.last_name, E2.first_name, E2.last_name 
+FROM EMPLOYEES E1 JOIN EMPLOYEES E2 ON E1.department_id = E2.department_id
+WHERE E1.first_name = 'Jennifer' AND  E1.employee_id <> E2.employee_id;
+
+Zadanie 8
+SELECT DEPARTMENTS.department_name FROM DEPARTMENTS 
+LEFT JOIN EMPLOYEES ON DEPARTMENTS.department_id = EMPLOYEES.department_id
+WHERE EMPLOYEES.employee_id IS NULL;
+
+Zadanie 9 
+CREATE TABLE JOB_GRADES AS
+SELECT * FROM HR.JOB_GRADES;
+
+Zadanie 10
+SELECT E.first_name, E.last_name, E.employee_id, J.job_title, D.department_name, E.salary, JG.grade
+FROM EMPLOYEES E JOIN JOBS J ON E.job_id = J.job_id
+JOIN DEPARTMENTS D ON E.department_id = D.department_id
+JOIN JOB_GRADES JG ON E.salary BETWEEN JG.min_salary AND JG.max_salary;
+
+Zadanie 11
+SELECT first_name, last_name, salary FROM EMPLOYEES
+WHERE salary > (SELECT AVG(salary) FROM EMPLOYEES)
+ORDER BY salary DESC;
+
+Zadanie 12
+SELECT employee_id, first_name, last_name FROM EMPLOYEES
+WHERE department_id IN (
+SELECT DISTINCT department_id FROM EMPLOYEES
+WHERE last_name LIKE '%u%');
+
