@@ -1,0 +1,59 @@
+Zadanie 1
+DECLARE
+  numer_max NUMBER;
+  nowy_numer NUMBER;
+  nowy_departament_name departments.department_name%TYPE := 'EDUCATION';
+  
+BEGIN
+  SELECT MAX(department_id) INTO numer_max FROM departments;
+  
+  nowy_numer := numer_max + 10;
+  
+  INSERT INTO departments (department_id, department_name)
+  VALUES (nowy_numer, nowy_departament_name);
+  
+  COMMIT;
+END;
+
+Zadanie 2
+DECLARE
+  numer_max NUMBER;
+  nowy_numer NUMBER;
+  nowy_departament_name departments.department_name%TYPE := 'EDUCATION';
+  nowy_location_id NUMBER := 3000; 
+
+BEGIN
+  SELECT MAX(department_id) INTO numer_max FROM departments;
+  
+  nowy_numer := numer_max + 10;
+  
+  INSERT INTO departments (department_id, department_name, location_id)
+  VALUES (nowy_numer, nowy_departament_name, nowy_location_id);
+  
+  COMMIT;
+END;
+
+Zadanie 3
+CREATE TABLE nowa_tabela (
+  wartosc VARCHAR2(10)
+);
+DECLARE
+  liczby NUMBER;
+BEGIN
+  FOR liczby IN 1..10 LOOP
+    IF liczby NOT IN (4, 6) THEN
+      INSERT INTO nowa_tabela (wartosc) VALUES (TO_CHAR(liczby));
+    END IF;
+  END LOOP;
+  COMMIT;
+END;
+
+Zadanie 4
+DECLARE
+  zmienna COUNTRIES%ROWTYPE;
+BEGIN
+  SELECT * INTO zmienna FROM COUNTRIES WHERE COUNTRY_ID = 'CA';
+  
+  DBMS_OUTPUT.PUT_LINE('Nazwa kraju: ' || zmienna.COUNTRY_NAME);
+  DBMS_OUTPUT.PUT_LINE('ID regionu: ' || zmienna.REGION_ID);
+END;
