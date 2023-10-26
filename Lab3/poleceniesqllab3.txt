@@ -49,6 +49,8 @@ BEGIN
 END;
 
 Zadanie 4
+SET SERVEROUTPUT ON;
+
 DECLARE
   zmienna COUNTRIES%ROWTYPE;
 BEGIN
@@ -57,3 +59,62 @@ BEGIN
   DBMS_OUTPUT.PUT_LINE('Nazwa kraju: ' || zmienna.COUNTRY_NAME);
   DBMS_OUTPUT.PUT_LINE('ID regionu: ' || zmienna.REGION_ID);
 END;
+
+Zadanie 5
+SET SERVEROUTPUT ON;
+
+DECLARE
+  TYPE dep_table IS TABLE OF VARCHAR2(30) INDEX BY PLS_INTEGER;
+  dep_names dep_table; 
+  i PLS_INTEGER := 10;
+BEGIN
+  FOR j IN 1..27 LOOP
+    IF MOD(i, 10) = 0 THEN
+      SELECT DEPARTMENT_NAME
+      INTO dep_names(i)
+      FROM DEPARTMENTS
+      WHERE DEPARTMENT_ID = i;
+    END IF;
+    i := i + 10;
+  END LOOP;
+
+  FOR k IN 10..100 LOOP
+    IF dep_names.EXISTS(k) THEN
+      DBMS_OUTPUT.PUT_LINE(dep_names(k)); 
+    END IF;
+  END LOOP;
+END;
+/
+
+Zadanie 6
+SET SERVEROUTPUT ON;
+
+DECLARE
+  TYPE dep_table IS TABLE OF DEPARTMENTS%ROWTYPE INDEX BY PLS_INTEGER;
+  dep_names dep_table; 
+  i PLS_INTEGER := 10;
+BEGIN
+  FOR j IN 1..27 LOOP
+    IF MOD(i, 10) = 0 THEN
+      SELECT *
+      INTO dep_names(i)
+      FROM DEPARTMENTS
+      WHERE DEPARTMENT_ID = i;
+    END IF;
+    i := i + 10;
+  END LOOP;
+
+  FOR k IN 10..100 LOOP
+    IF dep_names.EXISTS(k) THEN
+      DBMS_OUTPUT.PUT_LINE('DEPARTMENT_ID: ' || dep_names(k).DEPARTMENT_ID);
+      DBMS_OUTPUT.PUT_LINE('DEPARTMENT_NAME: ' || dep_names(k).DEPARTMENT_NAME);
+      DBMS_OUTPUT.PUT_LINE('MANAGER_ID: ' || dep_names(k).MANAGER_ID);
+      DBMS_OUTPUT.PUT_LINE('LOCATION_ID: ' || dep_names(k).LOCATION_ID);
+      DBMS_OUTPUT.PUT_LINE('------------------------------');
+    END IF;
+  END LOOP;
+END;
+/
+
+
+
