@@ -3,6 +3,5 @@ Karolina Maliszewska
 ## Rozwiązania zadań
 - [x] [Lab 1](Lab1)
 - [x] [Lab 2](Lab2)
-- [ ] [Lab 3](Lab3)
-     - [x] Zadania 1-6
-     - [ ] Zadania 7-9
+- [x] [Lab 3](Lab3)
+     - [x] Zadania 1-9
