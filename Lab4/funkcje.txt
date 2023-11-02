@@ -1,0 +1,170 @@
+Zadanie 1
+SET SERVEROUTPUT ON;
+CREATE OR REPLACE FUNCTION NazwaPracy(id_pracy VARCHAR2)
+RETURN VARCHAR2
+IS
+    nazwa VARCHAR2(35);
+BEGIN
+    SELECT JOB_TITLE INTO nazwa
+    FROM JOBS
+    WHERE JOB_ID = id_pracy;
+
+    RETURN nazwa;
+END NazwaPracy;
+/
+
+DECLARE
+    nazwa VARCHAR2(35);
+BEGIN
+    nazwa := NazwaPracy('AD_VP');
+    DBMS_OUTPUT.PUT_LINE('Nazwa pracy: ' || nazwa);
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Błąd: ' || SQLERRM);
+END;
+/
+
+Zadanie 2
+SET SERVEROUTPUT ON;
+CREATE OR REPLACE FUNCTION RoczneZarobki(id_pracownika NUMBER)
+RETURN NUMBER
+IS
+    zarobki NUMBER;
+BEGIN
+    SELECT (SALARY * 12) + (SALARY * 12 * COALESCE(COMMISSION_PCT, 0))
+    INTO zarobki
+    FROM EMPLOYEES
+    WHERE EMPLOYEE_ID = id_pracownika;
+    
+    RETURN zarobki;
+END RoczneZarobki;
+/
+
+DECLARE
+    zarobki NUMBER;
+BEGIN
+    zarobki := RoczneZarobki(173); 
+    DBMS_OUTPUT.PUT_LINE('Roczne zarobki pracownika: ' || zarobki);
+END;
+/
+
+Zadanie 3
+SET SERVEROUTPUT ON;
+CREATE OR REPLACE FUNCTION NumerKierunkowy(nr_telefonu VARCHAR2)
+RETURN VARCHAR2
+IS
+    numer_kierunkowy VARCHAR2(10);
+    caly_numer_telefonu VARCHAR2(30);
+BEGIN
+    numer_kierunkowy := '+' || REGEXP_SUBSTR(nr_telefonu, '(\d{1,3})', 1, 1, NULL, 1);
+    caly_numer_telefonu := '(' || numer_kierunkowy || ') ' || SUBSTR(nr_telefonu, LENGTH(numer_kierunkowy) + 2);
+    RETURN caly_numer_telefonu;
+END NumerKierunkowy;
+/
+
+DECLARE
+    numer_telefonu VARCHAR2(30);
+BEGIN
+    numer_telefonu := NumerKierunkowy('+48 123 456 789');
+    DBMS_OUTPUT.PUT_LINE('Numer kierunkowy w nawiasie: ' || numer_telefonu);
+END;
+/
+
+Zadanie 4
+SET SERVEROUTPUT ON;
+CREATE OR REPLACE FUNCTION CiagZnakow(id_tekst VARCHAR2)
+RETURN VARCHAR2
+IS
+    wynik VARCHAR2(100);
+BEGIN
+    wynik := INITCAP(SUBSTR(id_tekst, 1, 1)) || LOWER(SUBSTR(id_tekst, 2, LENGTH(id_tekst) - 2)) || INITCAP(SUBSTR(id_tekst, LENGTH(id_tekst), 1));
+    
+    RETURN wynik;
+END CiagZnakow;
+/
+
+DECLARE
+    wynik VARCHAR2(100);
+BEGIN
+    wynik := CiagZnakow('przykład'); 
+    DBMS_OUTPUT.PUT_LINE('Wynik: ' || wynik);
+END;
+/
+
+Zadanie 5
+SET SERVEROUTPUT ON;
+CREATE OR REPLACE FUNCTION PeselNaDate(pesel VARCHAR2)
+RETURN DATE
+IS
+    rok NUMBER;
+    miesiac NUMBER;
+    dzien NUMBER;
+    data_urodzenia DATE;
+BEGIN
+    rok := TO_NUMBER(SUBSTR(pesel, 1, 2));
+    miesiac := TO_NUMBER(SUBSTR(pesel, 3, 2));
+    dzien := TO_NUMBER(SUBSTR(pesel, 5, 2));
+
+    IF miesiac > 12 THEN
+        miesiac := miesiac - 20;
+        rok := rok + 2000;
+    ELSE
+        rok := rok + 1900;
+    END IF;
+
+    data_urodzenia := TO_DATE(rok || '-' || LPAD(miesiac, 2, '0') || '-' || LPAD(dzien, 2, '0'), 'yyyy-mm-dd');
+
+    RETURN data_urodzenia;
+END PeselNaDate;
+/
+
+DECLARE
+    data_urodzenia DATE;
+BEGIN
+    data_urodzenia := PeselNaDate('99011203412'); 
+    DBMS_OUTPUT.PUT_LINE('Data urodzenia: ' || TO_CHAR(data_urodzenia, 'yyyy-mm-dd'));
+END;
+/
+
+Zadanie 6
+SET SERVEROUTPUT ON;
+CREATE OR REPLACE FUNCTION LiczbaPracownikow(nazwa_kraju VARCHAR2)
+RETURN VARCHAR2
+IS
+    liczba_pracownikow NUMBER;
+    liczba_departamentow NUMBER;
+BEGIN
+    IF nazwa_kraju IS NULL THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Nie podano nazwy kraju.');
+    END IF;
+
+    SELECT COUNT(*) INTO liczba_pracownikow
+    FROM EMPLOYEES e
+    JOIN DEPARTMENTS d ON e.DEPARTMENT_ID = d.DEPARTMENT_ID
+    JOIN LOCATIONS l ON d.LOCATION_ID = l.LOCATION_ID
+    JOIN COUNTRIES c ON l.COUNTRY_ID = c.COUNTRY_ID
+    WHERE c.COUNTRY_NAME = nazwa_kraju;
+
+    SELECT COUNT(*) INTO liczba_departamentow
+    FROM DEPARTMENTS d
+    JOIN LOCATIONS l ON d.LOCATION_ID = l.LOCATION_ID
+    JOIN COUNTRIES c ON l.COUNTRY_ID = c.COUNTRY_ID
+    WHERE c.COUNTRY_NAME = nazwa_kraju;
+
+    RETURN 'Liczba pracowników w kraju ' || nazwa_kraju || ': ' || liczba_pracownikow || ', liczba departamentów w kraju ' || nazwa_kraju || ': ' || liczba_departamentow;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Podany kraj nie istnieje w bazie danych.');
+END LiczbaPracownikow;
+/
+
+DECLARE
+    wynik VARCHAR2(100);
+BEGIN
+    wynik := LiczbaPracownikow('Canada');
+    DBMS_OUTPUT.PUT_LINE(wynik);
+END;
+/
+
+
+
