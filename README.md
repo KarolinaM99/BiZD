@@ -7,4 +7,4 @@ Karolina Maliszewska
 - [ ] [Lab 4](Lab4)
      - [x] Funkcje (1-6)
      - [x] Wyzwalacze (1-5)
-     - [ ] Paczki (1-2) 
+     - [x] Paczki (1-2) 
