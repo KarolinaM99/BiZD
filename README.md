@@ -8,3 +8,5 @@ Karolina Maliszewska
       
 ## Rozwiązania zadań Statystyka i Algebra w Praktyce
 - [x] [Lab 1](Lab1_Python)
+- [x] [Lab 2](Lab2_Python)
+- [x] [Lab 3](Lab3_Python)
